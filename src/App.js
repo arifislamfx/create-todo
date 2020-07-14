@@ -1,26 +1,69 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import "./App.css";
+import { TextField, Button } from "@material-ui/core";
+import { useState } from "react";
+import Todo from "./components/Todo/Todo";
+import db from "./firebase";
+import firebase from "firebase";
 
-function App() {
+const App = () => {
+  const [todos, setTodos] = useState(["Hey"]);
+  const [input, setInput] = useState("");
+  console.log(todos);
+
+  const handleAddTodo = (event) => {
+    event.preventDefault();
+
+    db.collection("todos").add({
+      todo: input,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+    // old style
+    // const newTodo = [...todos, input];
+    // setTodos(newTodo);
+    setInput("");
+  };
+
+  useEffect(() => {
+    db.collection("todos")
+      .orderBy("timestamp", "desc")
+      .onSnapshot((snapshot) => {
+        setTodos(
+          snapshot.docs.map((doc) => ({ id: doc.id, todo: doc.data().todo }))
+        );
+      });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className="todo-container">
+        <h2>
+          Todo App <span>🎇</span>{" "}
+        </h2>
+        <form>
+          <TextField
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            id="standard-basic"
+            label="✔ Write a todo"
+          />
+          <Button
+            type="submit"
+            disabled={!input}
+            onClick={handleAddTodo}
+            variant="contained"
+            color="primary"
+          >
+            Add Todo
+          </Button>
+        </form>
+
+        {todos.map((todo) => (
+          <Todo todo={todo}></Todo>
+        ))}
+      </div>
     </div>
   );
-}
+};
 
 export default App;

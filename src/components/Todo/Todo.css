@@ -1,0 +1,9 @@
+.todo-list {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background: #f8f8f8;
+  border-radius: 20px;
+  box-shadow: 0px 0px 20px gray;
+  margin-top: 40px;
+}
