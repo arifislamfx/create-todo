@@ -49,6 +49,7 @@ const App = () => {
             label="✔ Write a todo"
           />
           <Button
+            className="add-btn"
             type="submit"
             disabled={!input}
             onClick={handleAddTodo}

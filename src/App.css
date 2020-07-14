@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 .todo-container {
     width: 400px;
     margin: 0 auto;
@@ -7,4 +11,29 @@
 .text-in input {
     color: white !important;
     font-size: 20px;
+}
+
+
+@media screen and (max-width: 600px) {
+
+    .text-in {
+        width: 300px !important;
+        height: 50px !important;
+        margin-left: 30px !important;
+        margin-bottom: 30px !important;
+    }
+}
+
+@media screen and (max-width: 600px) {
+
+    h2 {
+        text-align: center;
+        margin-top: -30px !important;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .add-btn {
+        margin-left: 30px !important;
+    }
 }
