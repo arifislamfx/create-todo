@@ -3,3 +3,8 @@
     margin: 0 auto;
     padding-top: 100px;
 }
+
+.text-in input {
+    color: white !important;
+    font-size: 20px;
+}
